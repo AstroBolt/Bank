@@ -23,6 +23,7 @@ namespace Bank
                 string s = d.Id + "| " + "$" + d.Value + "\r\n" + d.TimeStamp + "\r\n" + d.Description + "\r\n" + tags.ConvertKeysToTagStrings(d.TagKeys);
                 Button b = new Button();
                 b.Text = s;
+                b.Click += (sender, e) => EntryButton_Click(sender, e, d);
                 buttons.Add(b);
             }
             return buttons;
@@ -40,6 +41,15 @@ namespace Bank
 
         private Tags tags = new Tags();
         private List<DataEntry> dataEntryList = new List<DataEntry>();
+
+        private void EntryButton_Click(object sender, EventArgs e, DataEntry dataEntry)
+        {
+            EditDataEntryForm EDEForm = new EditDataEntryForm(this, ref dataEntry);
+            EDEForm.ShowDialog();
+            //Open form to edit entry
+                //Be able to scroll up and down through entries in form
+
+        }
     }
 
     class Tag

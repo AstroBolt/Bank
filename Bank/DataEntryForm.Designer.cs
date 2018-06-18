@@ -113,7 +113,7 @@
             // 
             // Description
             // 
-            this.Description.Location = new System.Drawing.Point(92, 124);
+            this.Description.Location = new System.Drawing.Point(89, 124);
             this.Description.Name = "Description";
             this.Description.Size = new System.Drawing.Size(265, 140);
             this.Description.TabIndex = 1;
@@ -143,7 +143,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 369);
+            this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.Cancel_Button);
             this.Controls.Add(this.Okay_Button);
             this.Controls.Add(this.Description);

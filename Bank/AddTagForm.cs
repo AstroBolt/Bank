@@ -44,7 +44,7 @@ namespace Bank
         private void AddAndClose()
         {
             userInfo.AddTag(AddTag_TagName_TextBox.Text);
-            this.Close();
+            this.Dispose();
         }
     }
 }

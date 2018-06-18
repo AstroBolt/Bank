@@ -65,8 +65,8 @@ namespace Bank
                 b.Click -= new System.EventHandler(Entry_Click);
                 EntryDisplayTable.Controls.Remove(b);
                 b.Dispose();
-                 Console.WriteLine("There are " + EntryDisplayTable.Controls.Count + " entries in the table.");
-                Console.WriteLine("Deleted one entry.");
+                //Console.WriteLine("There are " + EntryDisplayTable.Controls.Count + " entries in the table.");
+                //Console.WriteLine("Deleted one entry.");
             }
             Console.WriteLine("Displaying " + buttons.Count + " entries.");
             foreach (Button b in buttons)

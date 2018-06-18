@@ -10,38 +10,33 @@ using System.Windows.Forms;
 
 namespace Bank
 {
-    public partial class DataEntryForm : Form
+    public partial class EditDataEntryForm : Form
     {
         UserInfo userInfo;
-        public DataEntryForm(ref UserInfo _userInfo)
+        public EditDataEntryForm(UserInfo _userInfo, ref DataEntry _dataEntry)
         {
+            DataEntry dataEntry = _dataEntry;
             InitializeComponent();
             userInfo = _userInfo;
+            FillWithEntryInfo(_dataEntry);
             InitializeValue();
-            InitializeOkayCancel();
+            InitializeOkayCancel(dataEntry);
         }
 
-        private void DataEntryForm_Load(object sender, EventArgs e)
+        private void FillWithEntryInfo(DataEntry dataEntry)
         {
+            Value.Text = System.Convert.ToString(dataEntry.Value);
+            Description.Text = dataEntry.Description;
+            Date.Text = dataEntry.TimeStamp;
             if (userInfo.GetTagsArray() != null)
             {
                 TagsCheckBoxes.Items.AddRange(userInfo.GetTagsArray());
             }
         }
 
-        private void Okay_Button_Click(object sender, EventArgs e)
+        private void Okay_Button_Click(object sender, EventArgs e, DataEntry dataEntry)
         {
-            AddAndClose();
-        }
-
-        private void TagsCheckBoxes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Value_TextChanged(object sender, EventArgs e)
-        {
-           
+            EditAndClose(dataEntry);
         }
 
         private void ValueLostFocus(object sender, EventArgs e)
@@ -52,19 +47,20 @@ namespace Bank
         private void InitializeValue()
         {
             Value.LostFocus += new EventHandler(ValueLostFocus);
-            Value.Text = "0.00";
         }
 
-        private void InitializeOkayCancel()
+        private void InitializeOkayCancel(DataEntry dataEntry)
         {
+            Okay_Button.Click += (sender, e) => Okay_Button_Click(sender, e, dataEntry);
             Okay_Button.KeyDown += new KeyEventHandler(Okay_ButtonKeyDown);
         }
 
-        private void Okay_ButtonKeyDown(object sender, KeyEventArgs e)
+        private void Okay_ButtonKeyDown(object sender, KeyEventArgs e) //I need to add paramater passing data entry
         {
-            if(e.KeyCode == Keys.Enter) {
-                AddAndClose();
-            }   
+            if (e.KeyCode == Keys.Enter)
+            {
+                //EditAndClose();
+            }
         }
 
         private void Cancel_Button_Click(object sender, EventArgs e)
@@ -72,21 +68,21 @@ namespace Bank
             this.Close();
         }
 
-        private void AddAndClose()
-        {
+        private void EditAndClose(DataEntry data)
+        {           
             List<int> keyTags = new List<int>();
             foreach (Object item in TagsCheckBoxes.CheckedItems)
             {
                 keyTags.Add(userInfo.GetKey(item.ToString()));
             }
-            DataEntry dataEntry = new DataEntry(System.Convert.ToDouble(Value.Text), Date.Text, Description.Text, keyTags);
-            dataEntry.Value = System.Convert.ToDouble(Value.Text);
-            dataEntry.TimeStamp = Date.Text;
-            Console.WriteLine(Date.Value);
-            dataEntry.Description = Description.Text;
-            dataEntry.TagKeys = keyTags;
-            userInfo.AddDataEntry(dataEntry);
+            data.Value = System.Convert.ToDouble(Value.Text);
+            data.Description = Description.Text;
+            data.TimeStamp = Date.Text;
+            data.TagKeys = keyTags;
+
             this.Dispose();
         }
+
+
     }
 }
