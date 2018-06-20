@@ -74,44 +74,31 @@ namespace Bank
         {
             Tag newTag = new Tag();
             newTag.Name = t;
-            if (nextTagId.Count != 0) newTag.Id = nextTagId.Dequeue();
-            else newTag.Id = tags.Count;
-            tags.Add(newTag.Id, newTag);
-        }
-
-        public int GetKey(string s)
-        {
-            foreach (KeyValuePair<int, Tag> t in tags)
+            newTag.Id = GetNextAvailableTagId();
+            if (!DuplicateTag(newTag))
             {
-                if (s == t.Value.Name) return t.Key;
+                tags.Add(newTag.Id, newTag);
             }
-            return -1;
-        }
-
-        public List<string> ConvertKeysToTags(List<int> keys)
-        {
-            List<string> t = new List<string>();
-            foreach(int k in keys)
-            {
-                t.Add(tags[k].Name);
-            }
-            return t;
         }
 
         public string ConvertKeysToTagStrings(List<int> keys)
         {
             string s = "";
-            foreach(int k in keys)
+            foreach (int k in keys)
             {
                 s += tags[k].Name + "|";
             }
             return s;
         }
 
-        public void RemoveTag(Tag t)
+        public List<string> ConvertKeysToTags(List<int> keys)
         {
-            nextTagId.Enqueue(t.Id);
-            tags.Remove(t.Id);
+            List<string> t = new List<string>();
+            foreach (int k in keys)
+            {
+                t.Add(tags[k].Name);
+            }
+            return t;
         }
 
         public string[] GetArray()
@@ -128,7 +115,40 @@ namespace Bank
             return null;
         }
 
+        public int GetKey(string s)
+        {
+            foreach (KeyValuePair<int, Tag> t in tags)
+            {
+                if (s == t.Value.Name) return t.Key;
+            }
+            return -1;
+        }
+
+        public void RemoveTag(Tag t)
+        {
+            nextTagId.Enqueue(t.Id);
+            tags.Remove(t.Id);
+        }
+
         private Dictionary<int, Tag> tags = new Dictionary<int, Tag>();
         private Queue<int> nextTagId = new Queue<int>();
+
+        private bool DuplicateTag(Tag tag)
+        {
+            foreach(KeyValuePair<int, Tag> t in tags)
+            {
+                if (t.Value.Name == tag.Name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private int GetNextAvailableTagId()
+        {
+            if (nextTagId.Count != 0) return(nextTagId.Dequeue());
+            else return(tags.Count);
+        }
     }
 }

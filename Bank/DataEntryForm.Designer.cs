@@ -39,11 +39,13 @@
             this.Description = new System.Windows.Forms.RichTextBox();
             this.Okay_Button = new System.Windows.Forms.Button();
             this.Cancel_Button = new System.Windows.Forms.Button();
+            this.AddTag_TextBox = new System.Windows.Forms.TextBox();
+            this.AddTag_Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Value
             // 
-            this.Value.Location = new System.Drawing.Point(89, 68);
+            this.Value.Location = new System.Drawing.Point(86, 51);
             this.Value.Name = "Value";
             this.Value.Size = new System.Drawing.Size(100, 20);
             this.Value.TabIndex = 0;
@@ -53,15 +55,14 @@
             // 
             this.TagsCheckBoxes.CheckOnClick = true;
             this.TagsCheckBoxes.FormattingEnabled = true;
-            this.TagsCheckBoxes.Location = new System.Drawing.Point(448, 68);
+            this.TagsCheckBoxes.Location = new System.Drawing.Point(452, 43);
             this.TagsCheckBoxes.Name = "TagsCheckBoxes";
             this.TagsCheckBoxes.Size = new System.Drawing.Size(120, 244);
             this.TagsCheckBoxes.TabIndex = 3;
-            this.TagsCheckBoxes.SelectedIndexChanged += new System.EventHandler(this.TagsCheckBoxes_SelectedIndexChanged);
             // 
             // Date
             // 
-            this.Date.Location = new System.Drawing.Point(89, 282);
+            this.Date.Location = new System.Drawing.Point(86, 265);
             this.Date.Name = "Date";
             this.Date.Size = new System.Drawing.Size(200, 20);
             this.Date.TabIndex = 2;
@@ -69,7 +70,7 @@
             // Value_Label
             // 
             this.Value_Label.AutoSize = true;
-            this.Value_Label.Location = new System.Drawing.Point(23, 71);
+            this.Value_Label.Location = new System.Drawing.Point(20, 54);
             this.Value_Label.Name = "Value_Label";
             this.Value_Label.Size = new System.Drawing.Size(52, 13);
             this.Value_Label.TabIndex = 4;
@@ -78,7 +79,7 @@
             // Description_Label
             // 
             this.Description_Label.AutoSize = true;
-            this.Description_Label.Location = new System.Drawing.Point(23, 127);
+            this.Description_Label.Location = new System.Drawing.Point(20, 110);
             this.Description_Label.Name = "Description_Label";
             this.Description_Label.Size = new System.Drawing.Size(63, 13);
             this.Description_Label.TabIndex = 5;
@@ -87,7 +88,7 @@
             // TagsCheckBoxes_Label
             // 
             this.TagsCheckBoxes_Label.AutoSize = true;
-            this.TagsCheckBoxes_Label.Location = new System.Drawing.Point(385, 68);
+            this.TagsCheckBoxes_Label.Location = new System.Drawing.Point(389, 43);
             this.TagsCheckBoxes_Label.Name = "TagsCheckBoxes_Label";
             this.TagsCheckBoxes_Label.Size = new System.Drawing.Size(34, 13);
             this.TagsCheckBoxes_Label.TabIndex = 6;
@@ -96,7 +97,7 @@
             // Date_Label
             // 
             this.Date_Label.AutoSize = true;
-            this.Date_Label.Location = new System.Drawing.Point(23, 288);
+            this.Date_Label.Location = new System.Drawing.Point(20, 271);
             this.Date_Label.Name = "Date_Label";
             this.Date_Label.Size = new System.Drawing.Size(33, 13);
             this.Date_Label.TabIndex = 7;
@@ -113,7 +114,7 @@
             // 
             // Description
             // 
-            this.Description.Location = new System.Drawing.Point(89, 124);
+            this.Description.Location = new System.Drawing.Point(86, 107);
             this.Description.Name = "Description";
             this.Description.Size = new System.Drawing.Size(265, 140);
             this.Description.TabIndex = 1;
@@ -121,7 +122,7 @@
             // 
             // Okay_Button
             // 
-            this.Okay_Button.Location = new System.Drawing.Point(89, 334);
+            this.Okay_Button.Location = new System.Drawing.Point(86, 293);
             this.Okay_Button.Name = "Okay_Button";
             this.Okay_Button.Size = new System.Drawing.Size(75, 23);
             this.Okay_Button.TabIndex = 4;
@@ -131,7 +132,7 @@
             // 
             // Cancel_Button
             // 
-            this.Cancel_Button.Location = new System.Drawing.Point(170, 334);
+            this.Cancel_Button.Location = new System.Drawing.Point(167, 293);
             this.Cancel_Button.Name = "Cancel_Button";
             this.Cancel_Button.Size = new System.Drawing.Size(75, 23);
             this.Cancel_Button.TabIndex = 5;
@@ -139,11 +140,30 @@
             this.Cancel_Button.UseVisualStyleBackColor = true;
             this.Cancel_Button.Click += new System.EventHandler(this.Cancel_Button_Click);
             // 
+            // AddTag_TextBox
+            // 
+            this.AddTag_TextBox.Location = new System.Drawing.Point(452, 293);
+            this.AddTag_TextBox.Name = "AddTag_TextBox";
+            this.AddTag_TextBox.Size = new System.Drawing.Size(120, 20);
+            this.AddTag_TextBox.TabIndex = 9;
+            // 
+            // AddTag_Button
+            // 
+            this.AddTag_Button.Location = new System.Drawing.Point(478, 319);
+            this.AddTag_Button.Name = "AddTag_Button";
+            this.AddTag_Button.Size = new System.Drawing.Size(75, 23);
+            this.AddTag_Button.TabIndex = 10;
+            this.AddTag_Button.Text = "Add Tag";
+            this.AddTag_Button.UseVisualStyleBackColor = true;
+            this.AddTag_Button.Click += new System.EventHandler(this.AddTag_Button_Click);
+            // 
             // DataEntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 361);
+            this.Controls.Add(this.AddTag_Button);
+            this.Controls.Add(this.AddTag_TextBox);
             this.Controls.Add(this.Cancel_Button);
             this.Controls.Add(this.Okay_Button);
             this.Controls.Add(this.Description);
@@ -176,5 +196,7 @@
         private System.Windows.Forms.RichTextBox Description;
         private System.Windows.Forms.Button Okay_Button;
         private System.Windows.Forms.Button Cancel_Button;
+        private System.Windows.Forms.TextBox AddTag_TextBox;
+        private System.Windows.Forms.Button AddTag_Button;
     }
 }

@@ -19,57 +19,12 @@ namespace Bank
             userInfo = _userInfo;
             InitializeValue();
             InitializeOkayCancel();
+            InsertTags();
         }
 
         private void DataEntryForm_Load(object sender, EventArgs e)
         {
-            if (userInfo.GetTagsArray() != null)
-            {
-                TagsCheckBoxes.Items.AddRange(userInfo.GetTagsArray());
-            }
-        }
 
-        private void Okay_Button_Click(object sender, EventArgs e)
-        {
-            AddAndClose();
-        }
-
-        private void TagsCheckBoxes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Value_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void ValueLostFocus(object sender, EventArgs e)
-        {
-            if (Value.Text == String.Empty) Value.Text = "0.00";
-        }
-
-        private void InitializeValue()
-        {
-            Value.LostFocus += new EventHandler(ValueLostFocus);
-            Value.Text = "0.00";
-        }
-
-        private void InitializeOkayCancel()
-        {
-            Okay_Button.KeyDown += new KeyEventHandler(Okay_ButtonKeyDown);
-        }
-
-        private void Okay_ButtonKeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter) {
-                AddAndClose();
-            }   
-        }
-
-        private void Cancel_Button_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void AddAndClose()
@@ -87,6 +42,101 @@ namespace Bank
             dataEntry.TagKeys = keyTags;
             userInfo.AddDataEntry(dataEntry);
             this.Dispose();
+        }
+
+        private void AddTag_Button_Click(object sender, EventArgs e)
+        {
+            List<string> checkedTags = new List<string>();
+            if (AddTag_TextBox.Text == string.Empty) return;
+            checkedTags = GetSelectedTags();
+            TagsCheckBoxes.Items.Clear();
+            userInfo.AddTag(AddTag_TextBox.Text);
+            InsertTags();
+            if (checkedTags.Count != 0)
+            {
+                CheckTags(checkedTags);
+            }
+        }
+
+        private void Cancel_Button_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        private void CheckTags(List<string> tags)
+        {
+            if (tags.Count == 0 || TagsCheckBoxes.Items.Count == 0) return;
+            for (int i = 0; i < TagsCheckBoxes.Items.Count; i++)
+            {
+                foreach (string s in tags)
+                {
+                    if (TagsCheckBoxes.Items[i].ToString() == s)
+                    {
+                        TagsCheckBoxes.SetItemChecked(i, true);
+                    }
+                }
+            }
+        }
+
+        private List<string> GetSelectedTags()
+        {
+            List<string> strings = new List<string>();
+            if (TagsCheckBoxes.CheckedItems.Count != 0)
+            {
+                foreach (Object checkBox in TagsCheckBoxes.CheckedItems)
+                {
+                    strings.Add(checkBox.ToString());
+                }
+                String s = string.Empty;
+                foreach (string str in strings)
+                {
+                    s += str;
+                }
+                return strings;
+            }
+            return strings;
+        }
+
+        private void InitializeOkayCancel()
+        {
+            Okay_Button.KeyDown += new KeyEventHandler(Okay_Button_KeyDown);
+        }
+
+        private void InitializeValue()
+        {
+            Value.LostFocus += new EventHandler(ValueLostFocus);
+            Value.Text = "0.00";
+        }
+
+        private void InsertTags()
+        {
+            if (userInfo.GetTagsArray() != null)
+            {
+                TagsCheckBoxes.Items.AddRange(userInfo.GetTagsArray());
+            }
+        }
+
+        private void Okay_Button_Click(object sender, EventArgs e)
+        {
+            AddAndClose();
+        }
+
+        private void Okay_Button_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AddAndClose();
+            }
+        }
+
+        private void ValueLostFocus(object sender, EventArgs e)
+        {
+            if (Value.Text == String.Empty) Value.Text = "0.00";
+        }
+
+        private void Value_TextChanged(object sender, EventArgs e)
+        {
+           
         }
     }
 }
