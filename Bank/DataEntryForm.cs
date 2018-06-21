@@ -19,6 +19,7 @@ namespace Bank
             userInfo = _userInfo;
             InitializeValue();
             InitializeOkayCancel();
+            InitializeAddTagTextBox();
             InsertTags();
         }
 
@@ -29,32 +30,49 @@ namespace Bank
 
         private void AddAndClose()
         {
-            List<int> keyTags = new List<int>();
+            List<string> tags = new List<string>();
             foreach (Object item in TagsCheckBoxes.CheckedItems)
             {
-                keyTags.Add(userInfo.GetKey(item.ToString()));
+                tags.Add(item.ToString());
             }
-            DataEntry dataEntry = new DataEntry(System.Convert.ToDouble(Value.Text), Date.Text, Description.Text, keyTags);
+            DataEntry dataEntry = new DataEntry(System.Convert.ToDouble(Value.Text), Date.Text, Description.Text, tags);
             dataEntry.Value = System.Convert.ToDouble(Value.Text);
             dataEntry.TimeStamp = Date.Text;
             Console.WriteLine(Date.Value);
             dataEntry.Description = Description.Text;
-            dataEntry.TagKeys = keyTags;
+            dataEntry.Tags = tags;
             userInfo.AddDataEntry(dataEntry);
             this.Dispose();
         }
 
-        private void AddTag_Button_Click(object sender, EventArgs e)
+        private void AddTag()
         {
             List<string> checkedTags = new List<string>();
             if (AddTag_TextBox.Text == string.Empty) return;
-            checkedTags = GetSelectedTags();
-            TagsCheckBoxes.Items.Clear();
-            userInfo.AddTag(AddTag_TextBox.Text);
-            InsertTags();
-            if (checkedTags.Count != 0)
             {
-                CheckTags(checkedTags);
+                checkedTags = GetSelectedTags();
+                checkedTags.Add(AddTag_TextBox.Text);
+                TagsCheckBoxes.Items.Clear();
+                userInfo.AddTag(AddTag_TextBox.Text);
+                InsertTags();
+                if (checkedTags.Count != 0)
+                {
+                    CheckTags(checkedTags);
+                }
+            }
+        }
+
+        private void AddTag_Button_Click(object sender, EventArgs e)
+        {
+            AddTag();
+        }
+
+        private void AddTag_TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                AddTag();
+                AddTag_TextBox.Text = string.Empty;
             }
         }
 
@@ -65,14 +83,16 @@ namespace Bank
 
         private void CheckTags(List<string> tags)
         {
-            if (tags.Count == 0 || TagsCheckBoxes.Items.Count == 0) return;
-            for (int i = 0; i < TagsCheckBoxes.Items.Count; i++)
+            if (tags.Count != 0 && TagsCheckBoxes.Items.Count != 0)
             {
-                foreach (string s in tags)
+                for (int i = 0; i < TagsCheckBoxes.Items.Count; i++)
                 {
-                    if (TagsCheckBoxes.Items[i].ToString() == s)
+                    foreach (string s in tags)
                     {
-                        TagsCheckBoxes.SetItemChecked(i, true);
+                        if (TagsCheckBoxes.Items[i].ToString() == s)
+                        {
+                            TagsCheckBoxes.SetItemChecked(i, true);
+                        }
                     }
                 }
             }
@@ -95,6 +115,11 @@ namespace Bank
                 return strings;
             }
             return strings;
+        }
+
+        private void InitializeAddTagTextBox()
+        {
+            AddTag_TextBox.KeyUp += new KeyEventHandler(AddTag_TextBox_KeyUp);
         }
 
         private void InitializeOkayCancel()

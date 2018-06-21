@@ -12,21 +12,34 @@ namespace Bank
         public double Value { get; set; }
         public string TimeStamp { get; set; }
         public string Description { get; set; }
-        public List<int> TagKeys { get; set; }
+        public List<string> Tags { get; set; }
 
         public DataEntry() { }
-        public DataEntry(double _value, string _timeStamp, string _description, List<int> _tagKeys)
+        public DataEntry(double _value, string _timeStamp, string _description, List<string> _tags)
         {
             value = _value;
             timeStamp = _timeStamp;
             description = _description;
-            tagKeys = _tagKeys;
+            tags = _tags;
+        }
+
+        public string TagsToString(List<string> listStrings)
+        {
+            string tagsString = string.Empty;
+            if(listStrings.Count != 0)
+            {
+                foreach(string s in listStrings)
+                {
+                    tagsString += s + " | ";
+                }
+            }
+            return tagsString;
         }
 
         private int id = -1;
         private double value = 0;
         private string timeStamp = string.Empty;
         private string description = string.Empty;
-        private List<int> tagKeys;
+        private List<string> tags = new List<string>();
     }
 }

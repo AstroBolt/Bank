@@ -20,7 +20,7 @@ namespace Bank
             List<Button> buttons = new List<Button>();
             foreach(DataEntry d in dataEntryList)
             {
-                string s = d.Id + "| " + "$" + d.Value + "\r\n" + d.TimeStamp + "\r\n" + d.Description + "\r\n" + tags.ConvertKeysToTagStrings(d.TagKeys);
+                string s = d.Id + "| " + "$" + d.Value + "\r\n" + d.TimeStamp + "\r\n" + d.Description + "\r\n" + d.TagsToString(d.Tags);
                 Button b = new Button();
                 b.Text = s;
                 b.Click += (sender, e) => EntryButton_Click(sender, e, d);
