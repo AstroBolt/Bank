@@ -57,7 +57,7 @@ namespace Bank
 
         private void Cancel_Button_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Dispose();
         }
 
         private void CheckPrevTags(List<string> tags)
@@ -101,7 +101,7 @@ namespace Bank
             }
             data.Value = System.Convert.ToDouble(Value.Text);
             data.Description = Description.Text;
-            data.TimeStamp = Date.Text;
+            data.Date = Date.Text;
             data.Tags = tags;
 
             this.Dispose();
@@ -111,7 +111,7 @@ namespace Bank
         {
             Value.Text = System.Convert.ToString(dataEntry.Value);
             Description.Text = dataEntry.Description;
-            Date.Text = dataEntry.TimeStamp;
+            Date.Text = dataEntry.Date;
             if (userInfo.GetTagsArray() != null)
             {
                 TagsCheckBoxes.Items.AddRange(userInfo.GetTagsArray());

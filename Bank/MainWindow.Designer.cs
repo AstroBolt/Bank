@@ -65,7 +65,6 @@
             this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.MainTable.Size = new System.Drawing.Size(800, 450);
             this.MainTable.TabIndex = 0;
-            this.MainTable.Paint += new System.Windows.Forms.PaintEventHandler(this.MainTable_Paint);
             // 
             // Main_Buttons_Group
             // 

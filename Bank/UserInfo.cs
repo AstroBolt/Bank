@@ -10,56 +10,56 @@ namespace Bank
 {
     public class UserInfo
     {
-        public string[] GetTagsArray() { return tags.GetArray(); }
-        public int GetKey(string s)
-        {
-            return tags.GetKey(s);
-        }
-        public List<Button> GetEntryList()
-        {
-            List<Button> buttons = new List<Button>();
-            foreach(DataEntry d in dataEntryList)
-            {
-                string s = d.Id + "| " + "$" + d.Value + "\r\n" + d.TimeStamp + "\r\n" + d.Description + "\r\n" + d.TagsToString(d.Tags);
-                Button b = new Button();
-                b.Text = s;
-                b.Click += (sender, e) => EntryButton_Click(sender, e, d);
-                buttons.Add(b);
-            }
-            return buttons;
-        }
-        public void AddTag(string tagName) { tags.AddTag(tagName); }
-        public void AddDataEntry(DataEntry data)
-        {
-            data.Id = dataEntryList.Count; //Definately going to have to change this, if not overwriting will occur
-            dataEntryList.Add(data);
-
-        }
         public UserInfo()
         {
         }
 
-        private Tags tags = new Tags();
-        private List<DataEntry> dataEntryList = new List<DataEntry>();
-
-        private void EntryButton_Click(object sender, EventArgs e, DataEntry dataEntry)
+        public void AddDataEntry(DataEntry data)
         {
-            EditDataEntryForm EDEForm = new EditDataEntryForm(this, ref dataEntry);
-            EDEForm.ShowDialog();
-            //Open form to edit entry
-                //Be able to scroll up and down through entries in form
+            data.Id = tagsCount++;
+            dataEntryByDate.Add(data);
+            dataEntryByValue.Add(data);
+        }
 
+        public void AddTag(string tagName) { tags.AddTag(tagName); }
+
+        public List<DataEntry> GetDataEntryListByDate()
+        {
+            return new List<DataEntry>(dataEntryByDate);
+        }
+
+        public int GetDataEntryCount()
+        {
+            return dataEntryByDate.Count;
+        }
+
+        public string[] GetTagsArray() { return tags.GetArray(); }
+
+        private Tags tags = new Tags();
+
+        private SortedSet<DataEntry> dataEntryByDate = new SortedSet<DataEntry>(new ComparerDataEntryByDate());
+        private SortedSet<DataEntry> dataEntryByValue = new SortedSet<DataEntry>(new ComparerDataEntryByValue());
+        //private List<DataEntry> dataEntryByDateCreated = new List<DataEntry>();
+
+        private int tagsCount = 0;
+    }
+
+    class ComparerDataEntryByDate : IComparer<DataEntry>
+    {
+        public int Compare(DataEntry left, DataEntry right)
+        {
+            return DateTime.Parse(left.Date).CompareTo(DateTime.Parse(right.Date));
         }
     }
 
-    class Tag
+    class ComparerDataEntryByValue : IComparer<DataEntry>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-
-        private int id = -1;
-        private string name = string.Empty;
+        public int Compare(DataEntry left, DataEntry right)
+        {
+            return left.Value.CompareTo(right.Value);
+        }
     }
+
 
     class Tags
     {
@@ -72,33 +72,7 @@ namespace Bank
 
         public void AddTag(string t)
         {
-            Tag newTag = new Tag();
-            newTag.Name = t;
-            newTag.Id = GetNextAvailableTagId();
-            if (!DuplicateTag(newTag))
-            {
-                tags.Add(newTag.Id, newTag);
-            }
-        }
-
-        public string ConvertKeysToTagStrings(List<int> keys)
-        {
-            string s = "";
-            foreach (int k in keys)
-            {
-                s += tags[k].Name + "|";
-            }
-            return s;
-        }
-
-        public List<string> ConvertKeysToTags(List<int> keys)
-        {
-            List<string> t = new List<string>();
-            foreach (int k in keys)
-            {
-                t.Add(tags[k].Name);
-            }
-            return t;
+                tags.Add(t);
         }
 
         public string[] GetArray()
@@ -106,49 +80,20 @@ namespace Bank
             List<string> tagsList = new List<string>();
             if (tags != null)
             {
-                foreach (Tag value in tags.Values)
+                foreach (string tag in tags)
                 {
-                    tagsList.Add(value.Name);
+                    tagsList.Add(tag);
                 }
                 return tagsList.ToArray();
             }
             return null;
         }
 
-        public int GetKey(string s)
+        public int GetCount()
         {
-            foreach (KeyValuePair<int, Tag> t in tags)
-            {
-                if (s == t.Value.Name) return t.Key;
-            }
-            return -1;
+            return tags.Count;
         }
 
-        public void RemoveTag(Tag t)
-        {
-            nextTagId.Enqueue(t.Id);
-            tags.Remove(t.Id);
-        }
-
-        private Dictionary<int, Tag> tags = new Dictionary<int, Tag>();
-        private Queue<int> nextTagId = new Queue<int>();
-
-        private bool DuplicateTag(Tag tag)
-        {
-            foreach(KeyValuePair<int, Tag> t in tags)
-            {
-                if (t.Value.Name == tag.Name)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private int GetNextAvailableTagId()
-        {
-            if (nextTagId.Count != 0) return(nextTagId.Dequeue());
-            else return(tags.Count);
-        }
+        private SortedSet<string> tags = new SortedSet<string>();
     }
 }

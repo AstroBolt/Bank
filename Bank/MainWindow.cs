@@ -23,16 +23,6 @@ namespace Bank
 
         }
 
-        private void DataViewTable_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MainTable_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void Add_Entry_Button_Click(object sender, EventArgs e)
         {
             DataEntryForm DEForm = new DataEntryForm(ref userInfo);
@@ -45,6 +35,60 @@ namespace Bank
             ATForm.ShowDialog();
         }
 
+        private void dateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DisplayEntries()
+        {
+            List<Button> buttons = GetEntryList();
+            for (int i = EntryDisplayTable.Controls.Count - 1; i >= 0; i--)
+            {
+                Control b = EntryDisplayTable.Controls[i];
+                EntryDisplayTable.Controls.Remove(b);
+                b.Dispose();
+            }
+            foreach (Button b in buttons)
+            {
+                b.FlatStyle = FlatStyle.Flat;
+                b.Dock = DockStyle.Top;
+                b.TextAlign = ContentAlignment.TopLeft;
+                b.MinimumSize = new System.Drawing.Size(80, 80);
+                EntryDisplayTable.Controls.Add(b);
+            }
+        }
+
+        private void EntryButton_Click(object sender, EventArgs e, DataEntry dataEntry)
+        {
+            EditDataEntryForm EDEForm = new EditDataEntryForm(userInfo, ref dataEntry);
+            EDEForm.ShowDialog();
+        }
+
+        private void Entry_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EntryListSortingButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public List<Button> GetEntryList()
+        {
+            List<Button> buttons = new List<Button>();
+            foreach(DataEntry d in userInfo.GetDataEntryListByDate())
+            { 
+                string s = d.Id + "| " + "$" + d.Value + "\r\n" + d.Date + "\r\n" + d.Description + "\r\n" + d.TagsToString(d.Tags);
+                Button b = new Button();
+                b.Text = s;
+                b.Click += (sender, e) => EntryButton_Click(sender, e, d);
+                buttons.Add(b);
+            }
+            return buttons;
+        }
+
         private void MainWindowActivated(object sender, EventArgs e)
         {
             MainWindowUpdate();
@@ -55,43 +99,7 @@ namespace Bank
             DisplayEntries();
         }
 
-        private void DisplayEntries()
-        {
-            List<Button> buttons = userInfo.GetEntryList();
-            Console.WriteLine("There are " + EntryDisplayTable.Controls.Count + " entries in the table.");
-            for (int i = EntryDisplayTable.Controls.Count - 1; i >= 0; i--)
-            {
-                Control b = EntryDisplayTable.Controls[i];
-                b.Click -= new System.EventHandler(Entry_Click);
-                EntryDisplayTable.Controls.Remove(b);
-                b.Dispose();
-                //Console.WriteLine("There are " + EntryDisplayTable.Controls.Count + " entries in the table.");
-                //Console.WriteLine("Deleted one entry.");
-            }
-            Console.WriteLine("Displaying " + buttons.Count + " entries.");
-            foreach (Button b in buttons)
-            {
-                Console.WriteLine("Adding entry to Display Table");
-                b.Click += new System.EventHandler(Entry_Click);
-                b.FlatStyle = FlatStyle.Flat;
-                b.Dock = DockStyle.Top;
-                b.TextAlign = ContentAlignment.TopLeft;
-                b.MinimumSize = new System.Drawing.Size(80, 80);
-                EntryDisplayTable.Controls.Add(b);
-            }
-        }
-
-        private void Entry_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void valueToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SortingButton_Click(object sender, EventArgs e)
         {
 
         }
@@ -106,15 +114,12 @@ namespace Bank
 
         }
 
-        private void SortingButton_Click(object sender, EventArgs e)
+        private void valueToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void EntryListSortingButton_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 
 

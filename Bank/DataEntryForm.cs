@@ -37,7 +37,7 @@ namespace Bank
             }
             DataEntry dataEntry = new DataEntry(System.Convert.ToDouble(Value.Text), Date.Text, Description.Text, tags);
             dataEntry.Value = System.Convert.ToDouble(Value.Text);
-            dataEntry.TimeStamp = Date.Text;
+            dataEntry.Date = Date.Text;
             Console.WriteLine(Date.Value);
             dataEntry.Description = Description.Text;
             dataEntry.Tags = tags;
