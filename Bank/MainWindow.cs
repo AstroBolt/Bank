@@ -18,6 +18,10 @@ namespace Bank
             InitializeComponent();
             this.Activated += new EventHandler(MainWindowActivated);
         }
+
+        private string sortType = "date";
+        private bool SortInReverse = false;
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -37,7 +41,10 @@ namespace Bank
 
         private void dateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            sortType = "date";
+            UncheckSortByMenuItems();
+            dateToolStripMenuItem.Checked = true;
+            MainWindowUpdate();
         }
 
         private void DisplayEntries()
@@ -65,28 +72,52 @@ namespace Bank
             EDEForm.ShowDialog();
         }
 
-        private void Entry_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void EntryListSortingButton_Click(object sender, EventArgs e)
         {
-
+            SortInReverse = !SortInReverse;
+            MainWindowUpdate();
         }
 
         public List<Button> GetEntryList()
         {
             List<Button> buttons = new List<Button>();
-            foreach(DataEntry d in userInfo.GetDataEntryListByDate())
-            { 
-                string s = d.Id + "| " + "$" + d.Value + "\r\n" + d.Date + "\r\n" + d.Description + "\r\n" + d.TagsToString(d.Tags);
-                Button b = new Button();
-                b.Text = s;
-                b.Click += (sender, e) => EntryButton_Click(sender, e, d);
-                buttons.Add(b);
+            List<DataEntry> dataEntries = new List<DataEntry>();
+            if (sortType == "date")
+            {
+                dataEntries = userInfo.GetDataEntryListByDate();
+            }
+            else if (sortType == "value")
+            {
+                dataEntries = userInfo.GetDataEntryListByValue();
+            }
+            else if (sortType == "dateCreated")
+            {
+
+            }
+            if (!SortInReverse)
+            {
+                for (int i = 0; i < dataEntries.Count; i++) //Looping through normally
+                {
+                    buttons.Add(CreateButtonFromDataEntry(dataEntries[i]));
+                }
+            }
+            else
+            {
+                for (int i = dataEntries.Count - 1; i >= 0; i--) //Looping through reversed
+                {
+                    buttons.Add(CreateButtonFromDataEntry(dataEntries[i]));
+                }
             }
             return buttons;
+        }
+
+        private Button CreateButtonFromDataEntry(DataEntry d)
+        {
+            string s = d.Id + "| " + "$" + d.Value + "\r\n" + d.Date + "\r\n" + d.Description + "\r\n" + d.TagsToString(d.Tags);
+            Button b = new Button();
+            b.Text = s;
+            b.Click += (sender, e) => EntryButton_Click(sender, e, d);
+            return b;
         }
 
         private void MainWindowActivated(object sender, EventArgs e)
@@ -99,27 +130,19 @@ namespace Bank
             DisplayEntries();
         }
 
-        private void SortingButton_Click(object sender, EventArgs e)
+        private void UncheckSortByMenuItems()
         {
-
-        }
-
-        private void tagToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void valueStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
+            valueStripMenuItem.Checked = false;
+            dateToolStripMenuItem.Checked = false;
         }
 
         private void valueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            sortType = "value";
+            UncheckSortByMenuItems();
+            valueStripMenuItem.Checked = true;
+            MainWindowUpdate();
         }
-
-
     }
 
 

@@ -17,15 +17,24 @@ namespace Bank
         public void AddDataEntry(DataEntry data)
         {
             data.Id = tagsCount++;
-            dataEntryByDate.Add(data);
-            dataEntryByValue.Add(data);
+            //dataEntryByDate.Add(data);
+            Console.WriteLine(dataEntryByDate.Add(data));
+            //dataEntryByValue.Add(data);
+            Console.WriteLine(dataEntryByValue.Add(data));
+            Console.WriteLine("Added entry");
         }
 
         public void AddTag(string tagName) { tags.AddTag(tagName); }
 
         public List<DataEntry> GetDataEntryListByDate()
         {
+            Console.WriteLine("Number of elements in DataEntry lists: " + dataEntryByDate.Count);
             return new List<DataEntry>(dataEntryByDate);
+        }
+
+        public List<DataEntry> GetDataEntryListByValue()
+        {
+            return new List<DataEntry>(dataEntryByValue);
         }
 
         public int GetDataEntryCount()
@@ -47,7 +56,11 @@ namespace Bank
     class ComparerDataEntryByDate : IComparer<DataEntry>
     {
         public int Compare(DataEntry left, DataEntry right)
-        {
+        { 
+            if (DateTime.Parse(left.Date).CompareTo(DateTime.Parse(right.Date)) == 0)
+            {
+                return 1;
+            }
             return DateTime.Parse(left.Date).CompareTo(DateTime.Parse(right.Date));
         }
     }
@@ -56,10 +69,14 @@ namespace Bank
     {
         public int Compare(DataEntry left, DataEntry right)
         {
+            if (left.Value == right.Value)
+            {
+                return 1;
+            }
             return left.Value.CompareTo(right.Value);
         }
     }
-
+    
 
     class Tags
     {

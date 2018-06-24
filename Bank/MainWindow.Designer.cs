@@ -36,8 +36,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sortByToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tagToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.valueStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.valueStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EntryListSortingButton = new System.Windows.Forms.Button();
             this.MainTable.SuspendLayout();
@@ -140,30 +139,25 @@
             // sortByToolStripMenuItem
             // 
             this.sortByToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tagToolStripMenuItem,
-            this.valueStripMenuItem1,
+            this.valueStripMenuItem,
             this.dateToolStripMenuItem});
             this.sortByToolStripMenuItem.Name = "sortByToolStripMenuItem";
             this.sortByToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
             this.sortByToolStripMenuItem.Text = "Sort By";
             // 
-            // tagToolStripMenuItem
+            // valueStripMenuItem
             // 
-            this.tagToolStripMenuItem.Name = "tagToolStripMenuItem";
-            this.tagToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
-            this.tagToolStripMenuItem.Text = "Tag";
-            // 
-            // valueStripMenuItem1
-            // 
-            this.valueStripMenuItem1.Name = "valueStripMenuItem1";
-            this.valueStripMenuItem1.Size = new System.Drawing.Size(102, 22);
-            this.valueStripMenuItem1.Text = "Value";
+            this.valueStripMenuItem.Name = "valueStripMenuItem";
+            this.valueStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.valueStripMenuItem.Text = "Value";
+            this.valueStripMenuItem.Click += new System.EventHandler(this.valueToolStripMenuItem_Click);
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dateToolStripMenuItem.Text = "Date";
+            this.dateToolStripMenuItem.Click += new System.EventHandler(this.dateToolStripMenuItem_Click);
             // 
             // EntryListSortingButton
             // 
@@ -209,8 +203,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem sortByToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tagToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem valueStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem valueStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateToolStripMenuItem;
         private System.Windows.Forms.Button EntryListSortingButton;
     }
