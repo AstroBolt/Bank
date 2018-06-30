@@ -120,4 +120,20 @@
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="EntryListSortingButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAu
+        IwAALiMBeKU/dgAAAAd0SU1FB+IGGAUEHhUdoHUAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJ
+        TVBXgQ4XAAABKElEQVQ4T2PAA8zc3d1vAGldCJd4YBkeHv4wMzPzP5B+AuQrQIQJA9PQ0NA3II0wDDTg
+        HlBcHiKNG2iGhYW9RtYIw35+fkeA8nIQZZhAEeREbBph2MvL6ypQnQhEOQLIw/xICPv4+BwHqueGaAMC
+        AwODmUB/romIiFgfHR19Lioq6lJkZOQNoIGPQP4PCQn5Ghwc/CsoKOgvEP/T1NQ8CNVKIdDR0VkJDKhn
+        IJuAtt8D2noLiK8DXXAFiC8CXXMBSB8Gyq8H4g2qqqpNUK1gwOvt7X0Kmx/RMdDZh4DqMUJdFBial7Fp
+        gGGgrfeB6nDGtwwwNE/g0PgYKE8wpckBnXYYWSMwPF4CxdUh0oQBKN7vQzW+APJNIMLEAwVPT09QfJpD
+        uOiAgQEAh5LHvWshLj0AAAAASUVORK5CYII=
+</value>
+  </data>
+  <metadata name="MainMenuBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 17</value>
+  </metadata>
 </root>

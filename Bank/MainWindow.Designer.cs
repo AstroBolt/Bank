@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.MainTable = new System.Windows.Forms.TableLayoutPanel();
             this.Main_Buttons_Group = new System.Windows.Forms.GroupBox();
             this.Add_Tag_Button = new System.Windows.Forms.Button();
@@ -39,10 +40,17 @@
             this.valueStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EntryListSortingButton = new System.Windows.Forms.Button();
+            this.MainMenuBar = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTable.SuspendLayout();
             this.Main_Buttons_Group.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.MainMenuBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTable
@@ -52,15 +60,17 @@
             this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.MainTable.Controls.Add(this.Main_Buttons_Group, 0, 1);
-            this.MainTable.Controls.Add(this.EntryDisplayTable, 1, 1);
-            this.MainTable.Controls.Add(this.tableLayoutPanel1, 1, 0);
+            this.MainTable.Controls.Add(this.Main_Buttons_Group, 0, 2);
+            this.MainTable.Controls.Add(this.EntryDisplayTable, 1, 2);
+            this.MainTable.Controls.Add(this.tableLayoutPanel1, 1, 1);
+            this.MainTable.Controls.Add(this.MainMenuBar, 0, 0);
             this.MainTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTable.Location = new System.Drawing.Point(0, 0);
             this.MainTable.Name = "MainTable";
-            this.MainTable.RowCount = 3;
+            this.MainTable.RowCount = 4;
             this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.MainTable.Size = new System.Drawing.Size(800, 450);
             this.MainTable.TabIndex = 0;
@@ -69,9 +79,9 @@
             // 
             this.Main_Buttons_Group.Controls.Add(this.Add_Tag_Button);
             this.Main_Buttons_Group.Controls.Add(this.Add_Entry_Button);
-            this.Main_Buttons_Group.Location = new System.Drawing.Point(3, 48);
+            this.Main_Buttons_Group.Location = new System.Drawing.Point(3, 93);
             this.Main_Buttons_Group.Name = "Main_Buttons_Group";
-            this.Main_Buttons_Group.Size = new System.Drawing.Size(194, 100);
+            this.Main_Buttons_Group.Size = new System.Drawing.Size(194, 127);
             this.Main_Buttons_Group.TabIndex = 4;
             this.Main_Buttons_Group.TabStop = false;
             this.Main_Buttons_Group.Text = "Actions";
@@ -104,11 +114,11 @@
             this.EntryDisplayTable.AutoScroll = true;
             this.EntryDisplayTable.ColumnCount = 1;
             this.EntryDisplayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.EntryDisplayTable.Location = new System.Drawing.Point(203, 48);
+            this.EntryDisplayTable.Location = new System.Drawing.Point(203, 93);
             this.EntryDisplayTable.Name = "EntryDisplayTable";
             this.EntryDisplayTable.RowCount = 1;
             this.EntryDisplayTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.EntryDisplayTable.Size = new System.Drawing.Size(394, 354);
+            this.EntryDisplayTable.Size = new System.Drawing.Size(394, 309);
             this.EntryDisplayTable.TabIndex = 5;
             // 
             // tableLayoutPanel1
@@ -118,7 +128,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.EntryListSortingButton, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(203, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(203, 48);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -148,24 +158,24 @@
             // valueStripMenuItem
             // 
             this.valueStripMenuItem.Name = "valueStripMenuItem";
-            this.valueStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.valueStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.valueStripMenuItem.Text = "Value";
             this.valueStripMenuItem.Click += new System.EventHandler(this.valueToolStripMenuItem_Click);
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.dateToolStripMenuItem.Text = "Date";
             this.dateToolStripMenuItem.Click += new System.EventHandler(this.dateToolStripMenuItem_Click);
             // 
             // EntryListSortingButton
             // 
             this.EntryListSortingButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.EntryListSortingButton.BackColor = System.Drawing.SystemColors.Window;
+            this.EntryListSortingButton.BackColor = System.Drawing.SystemColors.Control;
             this.EntryListSortingButton.FlatAppearance.BorderSize = 0;
             this.EntryListSortingButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EntryListSortingButton.Image = global::Bank.Properties.Resources.EntryListSortingButton_Unselected1;
+            this.EntryListSortingButton.Image = ((System.Drawing.Image)(resources.GetObject("EntryListSortingButton.Image")));
             this.EntryListSortingButton.Location = new System.Drawing.Point(200, 16);
             this.EntryListSortingButton.Name = "EntryListSortingButton";
             this.EntryListSortingButton.Size = new System.Drawing.Size(20, 20);
@@ -174,21 +184,75 @@
             this.EntryListSortingButton.UseVisualStyleBackColor = false;
             this.EntryListSortingButton.Click += new System.EventHandler(this.EntryListSortingButton_Click);
             // 
+            // MainMenuBar
+            // 
+            this.MainTable.SetColumnSpan(this.MainMenuBar, 3);
+            this.MainMenuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.MainMenuBar.Location = new System.Drawing.Point(0, 0);
+            this.MainMenuBar.Name = "MainMenuBar";
+            this.MainMenuBar.Size = new System.Drawing.Size(800, 24);
+            this.MainMenuBar.TabIndex = 7;
+            this.MainMenuBar.Text = "menuStrip2";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As...";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.MainTable);
+            this.MainMenuStrip = this.MainMenuBar;
             this.Name = "MainWindow";
             this.Text = "Bank";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MainTable.ResumeLayout(false);
+            this.MainTable.PerformLayout();
             this.Main_Buttons_Group.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.MainMenuBar.ResumeLayout(false);
+            this.MainMenuBar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -206,6 +270,12 @@
         private System.Windows.Forms.ToolStripMenuItem valueStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateToolStripMenuItem;
         private System.Windows.Forms.Button EntryListSortingButton;
+        private System.Windows.Forms.MenuStrip MainMenuBar;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
     }
 }
 

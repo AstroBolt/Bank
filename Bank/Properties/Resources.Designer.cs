@@ -59,25 +59,5 @@ namespace Bank.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EntryListSortingButton_Unselected {
-            get {
-                object obj = ResourceManager.GetObject("EntryListSortingButton_Unselected", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap EntryListSortingButton_Unselected1 {
-            get {
-                object obj = ResourceManager.GetObject("EntryListSortingButton_Unselected1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

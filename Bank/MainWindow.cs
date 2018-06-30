@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Security;
+using System.IO;
+
 namespace Bank
 {
     public partial class MainWindow : Form
@@ -21,6 +24,8 @@ namespace Bank
 
         private string sortType = "date";
         private bool SortInReverse = false;
+        private string userInfoFile = string.Empty;
+        private bool changesMade = true;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -74,7 +79,16 @@ namespace Bank
 
         private void EntryListSortingButton_Click(object sender, EventArgs e)
         {
+            if (SortInReverse)
+            {
+                EntryListSortingButton.Image = Image.FromFile("C:\\Users\\Caleb\\source\\repos\\Bank\\Bank\\Resources\\EntryListSortingButton_Down.png");
+            }
+            else
+            {
+                EntryListSortingButton.Image = Image.FromFile("C:\\Users\\Caleb\\source\\repos\\Bank\\Bank\\Resources\\EntryListSortingButton_Up.png");
+            }
             SortInReverse = !SortInReverse;
+            
             MainWindowUpdate();
         }
 
@@ -130,10 +144,33 @@ namespace Bank
             DisplayEntries();
         }
 
-        private void UncheckSortByMenuItems()
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            valueStripMenuItem.Checked = false;
-            dateToolStripMenuItem.Checked = false;
+            openFile();
+        }
+
+        private void openFile()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    userInfo.LoadUserInfo(openFileDialog1.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
+            }
+            MainWindowUpdate();
+            userInfoFile = openFileDialog1.FileName;
         }
 
         private void valueToolStripMenuItem_Click(object sender, EventArgs e)
@@ -143,11 +180,68 @@ namespace Bank
             valueStripMenuItem.Checked = true;
             MainWindowUpdate();
         }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            userInfo.SaveUserInfo(userInfoFile);
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveAs();
+        }
+
+        private void UncheckSortByMenuItems()
+        {
+            valueStripMenuItem.Checked = false;
+            dateToolStripMenuItem.Checked = false;
+        }
+
+        private void SaveAs()
+        {
+            Stream myStream;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    userInfoFile = saveFileDialog1.FileName;
+                    myStream.Close();
+                    userInfo.SaveUserInfo(userInfoFile);
+                }
+            }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(changesMade)
+            {
+                PromptToSave();
+            }
+        }
+
+        private void ChangesMade()
+        {
+            changesMade = true;
+        }
+
+        private void PromptToSave()
+        {
+            SaveAs();
+        }
     }
 
-
+    
 
 }
+
+
+
 
 //To be used later.....
 
