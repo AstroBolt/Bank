@@ -99,7 +99,7 @@ namespace Bank
             {
                 tags.Add(item.ToString());
             }
-            data.Value = System.Convert.ToDouble(Value.Text);
+            data.Value = System.Convert.ToDecimal(Value.Text);
             data.Description = Description.Text;
             data.Date = Date.Text;
             data.Tags = tags;

@@ -44,6 +44,14 @@ namespace Bank
             ATForm.ShowDialog();
         }
 
+        private void dateAddedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sortType = "dateCreated";
+            UncheckSortByMenuItems();
+            dateAddedToolStripMenuItem.Checked = true;
+            MainWindowUpdate();
+        }
+
         private void dateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sortType = "date";
@@ -106,7 +114,7 @@ namespace Bank
             }
             else if (sortType == "dateCreated")
             {
-
+                dataEntries = userInfo.GetDataEntryListByDateCreated();
             }
             if (!SortInReverse)
             {
@@ -127,7 +135,7 @@ namespace Bank
 
         private Button CreateButtonFromDataEntry(DataEntry d)
         {
-            string s = d.Id + "| " + "$" + d.Value + "\r\n" + d.Date + "\r\n" + d.Description + "\r\n" + d.TagsToString(d.Tags);
+            string s = d.Id + "| " + "$" + String.Format(d.Value % 1 == 0 ? "{0:F0}" : "{0:F2}", d.Value) + "\r\n" + d.Date + "\r\n" + d.Description + "\r\n" + d.TagsToString(d.Tags);
             Button b = new Button();
             b.Text = s;
             b.Click += (sender, e) => EntryButton_Click(sender, e, d);
@@ -160,14 +168,14 @@ namespace Bank
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
+                //try
+               //{
                     userInfo.LoadUserInfo(openFileDialog1.FileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                //}
             }
             MainWindowUpdate();
             userInfoFile = openFileDialog1.FileName;

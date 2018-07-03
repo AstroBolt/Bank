@@ -19,11 +19,11 @@ namespace Bank
 
         public void AddDataEntry(DataEntry data)
         {
-            data.Id = tagsCount++;
-            //dataEntryByDate.Add(data);
-            Console.WriteLine(dataEntryByDate.Add(data));
-            //dataEntryByValue.Add(data);
-            Console.WriteLine(dataEntryByValue.Add(data));
+            data.Id = dataEntryByDate.Count;
+            data.DateCreated = DateTime.Now;
+            dataEntryByDate.Add(data);
+            dataEntryByValue.Add(data);
+            dataEntryByDateCreated.Add(data);
             Console.WriteLine("Added entry");
         }
 
@@ -55,6 +55,11 @@ namespace Bank
             return new List<DataEntry>(dataEntryByDate);
         }
 
+        public List<DataEntry> GetDataEntryListByDateCreated()
+        {
+            return new List<DataEntry>(dataEntryByDateCreated);
+        }
+
         public List<DataEntry> GetDataEntryListByValue()
         {
             return new List<DataEntry>(dataEntryByValue);
@@ -71,7 +76,8 @@ namespace Bank
         {
             UserInfoDataPackage userInfoDataPackage = ReadUserInfo(file);
             dataEntryByDate = new SortedSet<DataEntry>(userInfoDataPackage.DataEntries, new ComparerDataEntryByDate());
-            dataEntryByValue = new SortedSet<DataEntry>(dataEntryByDate, new ComparerDataEntryByValue()); 
+            dataEntryByValue = new SortedSet<DataEntry>(dataEntryByDate, new ComparerDataEntryByValue());
+            dataEntryByDateCreated = new SortedSet<DataEntry>(dataEntryByDate, new ComparerDataEntryByDateCreated());
             tags.ImportTagSet(new SortedSet<string>(userInfoDataPackage.Tags));
         }
 
@@ -87,10 +93,7 @@ namespace Bank
 
         private SortedSet<DataEntry> dataEntryByDate = new SortedSet<DataEntry>(new ComparerDataEntryByDate());
         private SortedSet<DataEntry> dataEntryByValue = new SortedSet<DataEntry>(new ComparerDataEntryByValue());
-        //private List<DataEntry> dataEntryByDateCreated = new List<DataEntry>();
-
-        private int tagsCount = 0;
-
+        private SortedSet<DataEntry> dataEntryByDateCreated = new SortedSet<DataEntry>(new ComparerDataEntryByDate());
 
         private UserInfoDataPackage ReadUserInfo(string file)
         {
@@ -133,6 +136,18 @@ namespace Bank
                 return 1;
             }
             return left.Value.CompareTo(right.Value);
+        }
+    }
+
+    class ComparerDataEntryByDateCreated : IComparer<DataEntry>
+    {
+        public int Compare(DataEntry left, DataEntry right)
+        {
+            if (DateTime.Compare(left.DateCreated, right.DateCreated) == 0)
+            {
+                return 1;
+            }
+            return DateTime.Compare(left.DateCreated, right.DateCreated);
         }
     }
 

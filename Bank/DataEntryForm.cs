@@ -35,8 +35,8 @@ namespace Bank
             {
                 tags.Add(item.ToString());
             }
-            DataEntry dataEntry = new DataEntry(System.Convert.ToDouble(Value.Text), Date.Text, Description.Text, tags);
-            dataEntry.Value = System.Convert.ToDouble(Value.Text);
+            DataEntry dataEntry = new DataEntry(System.Convert.ToDecimal(Value.Text), Date.Text, Description.Text, tags);
+            dataEntry.Value = System.Convert.ToDecimal(Value.Text);
             dataEntry.Date = Date.Text;
             dataEntry.Description = Description.Text;
             dataEntry.Tags = tags;

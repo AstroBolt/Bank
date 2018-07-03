@@ -9,15 +9,17 @@ namespace Bank
     public class DataEntry
     {
         public int Id { get; set; }
-        public double Value { get; set; }
+        public decimal Value { get; set; }
+        public DateTime DateCreated { get; set; }
         public string Date { get; set; }
         public string Description { get; set; }
         public List<string> Tags { get; set; }
 
         public DataEntry() { }
-        public DataEntry(double _value, string _date, string _description, List<string> _tags)
+        public DataEntry(decimal _value, string _date, string _description, List<string> _tags)
         {
             value = _value;
+            dateCreated = DateTime.Now;
             date = _date;
             description = _description;
             tags = _tags;
@@ -37,7 +39,8 @@ namespace Bank
         }
 
         private int id = -1;
-        private double value = 0;
+        private decimal value = 0;
+        private DateTime dateCreated = DateTime.Now;
         private string date = string.Empty;
         private string description = string.Empty;
         private List<string> tags = new List<string>();
