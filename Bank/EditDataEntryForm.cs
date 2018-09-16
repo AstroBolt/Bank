@@ -75,7 +75,7 @@ namespace Bank
             }
         }
 
-        private void CheckEntryTags(DataEntry dataEntry)
+        private void CheckEntryTags(DataEntry dataEntry) //Checks off the tags associated with the entry
         {
             if (dataEntry.Tags.Count != 0 && TagsCheckBoxes.Items.Count != 0)
             {

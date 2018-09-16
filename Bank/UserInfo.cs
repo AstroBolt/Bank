@@ -79,6 +79,7 @@ namespace Bank
             dataEntryByValue = new SortedSet<DataEntry>(dataEntryByDate, new ComparerDataEntryByValue());
             dataEntryByDateCreated = new SortedSet<DataEntry>(dataEntryByDate, new ComparerDataEntryByDateCreated());
             tags.ImportTagSet(new SortedSet<string>(userInfoDataPackage.Tags));
+            Console.WriteLine(tags.GetCount());
         }
 
         public void SaveUserInfo(string file)
@@ -156,12 +157,11 @@ namespace Bank
 
         public Tags()
         {
-            //nextTagId.Enqueue(1);
         }
 
         public void AddTag(string t)
         {
-                tags.Add(t);
+            tags.Add(t);
         }
 
         public SortedSet<string> ExportTagSet()

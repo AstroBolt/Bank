@@ -92,10 +92,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -113,18 +113,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="EntryListSortingButton_Unselected.jpg" />
+    <None Include="Resources\Up_Arrows.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\EntryListSortingButton_Down.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\EntryListSortingButton_Unselected.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\EntryListSortingButton_Up.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="Resources\Down_Arrows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Unactivated_Arrows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit_Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit_Up.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
