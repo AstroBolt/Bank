@@ -30,11 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.MainTable = new System.Windows.Forms.TableLayoutPanel();
-            this.Tag_Search_Table = new System.Windows.Forms.TableLayoutPanel();
-            this.Tag_Selection_Label = new System.Windows.Forms.Label();
-            this.Tag_Search_checkedListBox = new System.Windows.Forms.CheckedListBox();
-            this.Tag_Search_Filters = new System.Windows.Forms.Label();
-            this.FilterTypeComboBox = new System.Windows.Forms.ComboBox();
             this.Main_Buttons_Group = new System.Windows.Forms.GroupBox();
             this.Add_Tag_Button = new System.Windows.Forms.Button();
             this.Add_Entry_Button = new System.Windows.Forms.Button();
@@ -53,7 +48,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTable.SuspendLayout();
-            this.Tag_Search_Table.SuspendLayout();
             this.Main_Buttons_Group.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -64,10 +58,9 @@
             // 
             this.MainTable.AccessibleName = "MainTable";
             this.MainTable.ColumnCount = 3;
+            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.MainTable.Controls.Add(this.Tag_Search_Table, 2, 2);
             this.MainTable.Controls.Add(this.Main_Buttons_Group, 0, 2);
             this.MainTable.Controls.Add(this.EntryDisplayTable, 1, 2);
             this.MainTable.Controls.Add(this.tableLayoutPanel1, 1, 1);
@@ -76,84 +69,20 @@
             this.MainTable.Location = new System.Drawing.Point(0, 0);
             this.MainTable.Name = "MainTable";
             this.MainTable.RowCount = 4;
-            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
+            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 77.77779F));
+            this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.MainTable.Size = new System.Drawing.Size(800, 450);
             this.MainTable.TabIndex = 0;
-            // 
-            // Tag_Search_Table
-            // 
-            this.Tag_Search_Table.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tag_Search_Table.ColumnCount = 1;
-            this.Tag_Search_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.Tag_Search_Table.Controls.Add(this.Tag_Selection_Label, 0, 3);
-            this.Tag_Search_Table.Controls.Add(this.Tag_Search_checkedListBox, 0, 4);
-            this.Tag_Search_Table.Controls.Add(this.Tag_Search_Filters, 0, 0);
-            this.Tag_Search_Table.Controls.Add(this.FilterTypeComboBox, 0, 1);
-            this.Tag_Search_Table.Location = new System.Drawing.Point(603, 93);
-            this.Tag_Search_Table.Name = "Tag_Search_Table";
-            this.Tag_Search_Table.RowCount = 5;
-            this.Tag_Search_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.Tag_Search_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.Tag_Search_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.Tag_Search_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.Tag_Search_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.Tag_Search_Table.Size = new System.Drawing.Size(194, 309);
-            this.Tag_Search_Table.TabIndex = 8;
-            // 
-            // Tag_Selection_Label
-            // 
-            this.Tag_Selection_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Tag_Selection_Label.AutoSize = true;
-            this.Tag_Selection_Label.Location = new System.Drawing.Point(3, 185);
-            this.Tag_Selection_Label.Name = "Tag_Selection_Label";
-            this.Tag_Selection_Label.Size = new System.Drawing.Size(73, 13);
-            this.Tag_Selection_Label.TabIndex = 2;
-            this.Tag_Selection_Label.Text = "Tag Selection";
-            // 
-            // Tag_Search_checkedListBox
-            // 
-            this.Tag_Search_checkedListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Tag_Search_checkedListBox.FormattingEnabled = true;
-            this.Tag_Search_checkedListBox.Location = new System.Drawing.Point(3, 212);
-            this.Tag_Search_checkedListBox.Name = "Tag_Search_checkedListBox";
-            this.Tag_Search_checkedListBox.Size = new System.Drawing.Size(188, 94);
-            this.Tag_Search_checkedListBox.TabIndex = 1;
-            // 
-            // Tag_Search_Filters
-            // 
-            this.Tag_Search_Filters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Tag_Search_Filters.AutoSize = true;
-            this.Tag_Search_Filters.Location = new System.Drawing.Point(3, 17);
-            this.Tag_Search_Filters.Name = "Tag_Search_Filters";
-            this.Tag_Search_Filters.Size = new System.Drawing.Size(88, 13);
-            this.Tag_Search_Filters.TabIndex = 3;
-            this.Tag_Search_Filters.Text = "Tag Search Filter";
-            // 
-            // FilterTypeComboBox
-            // 
-            this.FilterTypeComboBox.FormattingEnabled = true;
-            this.FilterTypeComboBox.Items.AddRange(new object[] {
-            "Must have",
-            "Must not have"});
-            this.FilterTypeComboBox.Location = new System.Drawing.Point(3, 33);
-            this.FilterTypeComboBox.Name = "FilterTypeComboBox";
-            this.FilterTypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.FilterTypeComboBox.TabIndex = 5;
-            this.FilterTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.FilterTypeComboBox_SelectedIndexChanged);
             // 
             // Main_Buttons_Group
             // 
             this.Main_Buttons_Group.Controls.Add(this.Add_Tag_Button);
             this.Main_Buttons_Group.Controls.Add(this.Add_Entry_Button);
-            this.Main_Buttons_Group.Location = new System.Drawing.Point(3, 93);
+            this.Main_Buttons_Group.Location = new System.Drawing.Point(3, 74);
             this.Main_Buttons_Group.Name = "Main_Buttons_Group";
-            this.Main_Buttons_Group.Size = new System.Drawing.Size(194, 127);
+            this.Main_Buttons_Group.Size = new System.Drawing.Size(114, 127);
             this.Main_Buttons_Group.TabIndex = 4;
             this.Main_Buttons_Group.TabStop = false;
             this.Main_Buttons_Group.Text = "Actions";
@@ -186,11 +115,11 @@
             this.EntryDisplayTable.AutoScroll = true;
             this.EntryDisplayTable.ColumnCount = 1;
             this.EntryDisplayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.EntryDisplayTable.Location = new System.Drawing.Point(203, 93);
+            this.EntryDisplayTable.Location = new System.Drawing.Point(123, 74);
             this.EntryDisplayTable.Name = "EntryDisplayTable";
             this.EntryDisplayTable.RowCount = 1;
             this.EntryDisplayTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.EntryDisplayTable.Size = new System.Drawing.Size(394, 309);
+            this.EntryDisplayTable.Size = new System.Drawing.Size(474, 325);
             this.EntryDisplayTable.TabIndex = 5;
             // 
             // tableLayoutPanel1
@@ -200,7 +129,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.EntryListSortingButton, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(203, 48);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(123, 27);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -209,12 +138,13 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.menuStrip1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sortByToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 15);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(197, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(64, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -233,21 +163,21 @@
             this.valueStripMenuItem.Name = "valueStripMenuItem";
             this.valueStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.valueStripMenuItem.Text = "Value";
-            this.valueStripMenuItem.Click += new System.EventHandler(this.valueToolStripMenuItem_Click);
+            this.valueStripMenuItem.Click += new System.EventHandler(this.ValueToolStripMenuItem_Click);
             // 
             // dateAddedToolStripMenuItem
             // 
             this.dateAddedToolStripMenuItem.Name = "dateAddedToolStripMenuItem";
             this.dateAddedToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.dateAddedToolStripMenuItem.Text = "Date added";
-            this.dateAddedToolStripMenuItem.Click += new System.EventHandler(this.dateAddedToolStripMenuItem_Click);
+            this.dateAddedToolStripMenuItem.Click += new System.EventHandler(this.DateAddedToolStripMenuItem_Click);
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
             this.dateToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.dateToolStripMenuItem.Text = "Date";
-            this.dateToolStripMenuItem.Click += new System.EventHandler(this.dateToolStripMenuItem_Click);
+            this.dateToolStripMenuItem.Click += new System.EventHandler(this.DateToolStripMenuItem_Click);
             // 
             // EntryListSortingButton
             // 
@@ -326,8 +256,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MainTable.ResumeLayout(false);
             this.MainTable.PerformLayout();
-            this.Tag_Search_Table.ResumeLayout(false);
-            this.Tag_Search_Table.PerformLayout();
             this.Main_Buttons_Group.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -352,18 +280,13 @@
         private System.Windows.Forms.ToolStripMenuItem valueStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateToolStripMenuItem;
         private System.Windows.Forms.Button EntryListSortingButton;
+        private System.Windows.Forms.ToolStripMenuItem dateAddedToolStripMenuItem;
         private System.Windows.Forms.MenuStrip MainMenuBar;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dateAddedToolStripMenuItem;
-        private System.Windows.Forms.TableLayoutPanel Tag_Search_Table;
-        private System.Windows.Forms.Label Tag_Selection_Label;
-        private System.Windows.Forms.CheckedListBox Tag_Search_checkedListBox;
-        private System.Windows.Forms.Label Tag_Search_Filters;
-        private System.Windows.Forms.ComboBox FilterTypeComboBox;
     }
 }
 

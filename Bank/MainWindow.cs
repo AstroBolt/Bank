@@ -11,6 +11,19 @@ using System.Windows.Forms;
 using System.Security;
 using System.IO;
 
+
+/*
+ * To do:
+ *  Update filter tags whenever tags are added.
+ *  Improve file I/O operations
+ *  Tag deletion
+ *  Reformat entries
+ *  Entry deletion
+ *      Little x's top right corner of entries that only appear as you hover over the entry
+ */
+
+
+
 namespace Bank
 {
     public partial class MainWindow : Form
@@ -21,20 +34,31 @@ namespace Bank
             InitializeComponent();
             this.Activated += new EventHandler(MainWindowActivated);
         }
-
         private string sortType = "date";
-        private bool SortInReverse = false;
+        private bool SortInReverse = true;
         private string userInfoFile = string.Empty;
         private bool changesMade = true;
-        private int currentTileIndex = 0;
-
-        private List<TagSearchTypeTile> TagSearchTypeTileList = new List<TagSearchTypeTile>();
+        private TagSearch tagSearch;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            TagSearchTypeTileList.Add(new MustHaveTile(ref Tag_Search_checkedListBox));
-            TagSearchTypeTileList.Add(new MustHaveNotTile(ref Tag_Search_checkedListBox));
-            FilterTypeComboBox.SelectedIndex = 0;
+            MainTable.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+
+            tagSearch = new TagSearch(ref userInfo);//does this need to be a ref?
+            tagSearch.GetApplyButton().Click += (se, ev) =>
+            {
+                tagSearch.SaveCheckedTags();
+                DisplayEntries(); //Calls GetEntries() which calls for filtering
+            };
+            MainTable.Controls.Add(tagSearch.GetMainTable(), 2, 2);
+
+            //Start sorting tool bar with date sorting
+            sortType = "date";
+            dateToolStripMenuItem.Checked = true;
+            sortByToolStripMenuItem.Text = "Date";
+
+            //Start sorting reversal button as up
+            EntryListSortingButton.Image = Properties.Resources.Up_Arrows;
         }
 
         private void Add_Entry_Button_Click(object sender, EventArgs e)
@@ -49,7 +73,7 @@ namespace Bank
             ATForm.ShowDialog();
         }
 
-        private void dateAddedToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DateAddedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sortType = "dateCreated";
             UncheckSortByMenuItems();
@@ -58,7 +82,7 @@ namespace Bank
             DisplayEntries();
         }
 
-        private void dateToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sortType = "date";
             UncheckSortByMenuItems();
@@ -86,11 +110,6 @@ namespace Bank
             }
         }
 
-        private void ResetFilterTags()
-        {
-            Tag_Search_checkedListBox.Items.AddRange(userInfo.GetTagsArray());
-        }
-
         private void EntryButton_Click(object sender, EventArgs e, DataEntry dataEntry)
         {
             EditDataEntryForm EDEForm = new EditDataEntryForm(userInfo, ref dataEntry);
@@ -116,18 +135,9 @@ namespace Bank
         {
             List<Button> buttons = new List<Button>();
             List<DataEntry> dataEntries = new List<DataEntry>();
-            if (sortType == "date")
-            {
-                dataEntries = userInfo.GetDataEntryListByDate();
-            }
-            else if (sortType == "value")
-            {
-                dataEntries = userInfo.GetDataEntryListByValue();
-            }
-            else if (sortType == "dateCreated")
-            {
-                dataEntries = userInfo.GetDataEntryListByDateCreated();
-            }
+
+            if (userInfo.GetDataEntryCount() == 0) dataEntries = userInfo.GetDataEntryList("date");
+            else dataEntries = userInfo.GetDataEntryList(sortType);
             if (!SortInReverse)
             {
                 for (int i = 0; i < dataEntries.Count; i++) //Looping through normally
@@ -142,9 +152,6 @@ namespace Bank
                     buttons.Add(CreateButtonFromDataEntry(dataEntries[i]));
                 }
             }
-
-            //Filter entries based on tag filtering
-
             return buttons;
         }
 
@@ -159,7 +166,8 @@ namespace Bank
 
         private void MainWindowActivated(object sender, EventArgs e)
         {
-
+            Console.WriteLine(userInfo.GetDataEntryCount());
+            DisplayEntries();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -178,21 +186,21 @@ namespace Bank
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                //try
-               //{
+                try
+               {
                     userInfo.LoadUserInfo(openFileDialog1.FileName);
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                //}
+                }
+                catch (Exception ex)
+                {
+                   MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
             }
             DisplayEntries();
-            ResetFilterTags();
+            tagSearch.UpdateFilterTags();
             userInfoFile = openFileDialog1.FileName;
         }
 
-        private void valueToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sortType = "value";
             UncheckSortByMenuItems();
@@ -255,156 +263,7 @@ namespace Bank
         {
             SaveAs();
         }
-
-        private void FilterTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            Tag_Search_Table.Controls.Remove(TagSearchTypeTileList[currentTileIndex].GetTile());
-            currentTileIndex = FilterTypeComboBox.SelectedIndex;
-            Tag_Search_Table.Controls.Add(TagSearchTypeTileList[currentTileIndex].GetTile(), 2, 1);
-            TagSearchTypeTileList[currentTileIndex].isDisplayed = true;
-            TagSearchTypeTileList[currentTileIndex].RefreshTags();
-        }
     }
-
-    //A tile that will specify either a "must-have" list of tags, or "either-or" list of tags to filter the entries by
-    //Can be one of "must_have", "at_least_one", or "only_one" types.
-    //"must_have" means that the entry must have every tag specified.
-    //"at_least_one" means that the entry must have at least one of the tags specified.
-    //"only_one" means that the entry must have at most one of the group of tags specified.
-    public class TagSearchTypeTile
-    {
-        public bool isDisplayed = false;
-
-        protected Label FilterTypeLabel = new Label();
-        protected TableLayoutPanel mainTable = new TableLayoutPanel();
-
-        private Button ClearAllButton = new Button();
-        private Button DeleteFilterButton = new Button();
-        protected CheckedListBox checkedListBox;
-        private List<string> tags = new List<string>(); //Change back to private
-        private List<string> tagWhiteList;
-        private List<string> tagBlackList = new List<string>();
-
-        public TagSearchTypeTile(ref CheckedListBox checkedListBox_) 
-        {
-            //Initialization
-            mainTable.RowCount = 3;
-            mainTable.ColumnCount = 2;
-            checkedListBox = checkedListBox_;
-            checkedListBox.CheckOnClick = true;
-            tagWhiteList = tags;
-            InitializeClearAllButton();
-            InitializeEvents();
-
-            //Add the controls to the tile
-            mainTable.Controls.Add(FilterTypeLabel, 0, 0);
-            mainTable.Controls.Add(ClearAllButton, 0, 2);
-
-
-
-        }
-
-        public TableLayoutPanel GetTile()
-        {
-            return mainTable;
-        }
-
-        public void AddTag(string tag)
-        {
-            tags.Add(tag);
-            UpdateSearch();
-        }
-
-        public void RefreshTags()
-        {
-            UpdateSelectedTags();
-        }
-
-        private void InitializeClearAllButton()
-        {
-            ClearAllButton.Text = "Clear all";
-            ClearAllButton.Anchor = (AnchorStyles.Left | AnchorStyles.Bottom);
-            ClearAllButton.Click += (sender, e) =>
-            {
-                tags.Clear();
-                UpdateSelectedTags();
-            };
-        }
-
-        protected void InitializeDeleteFilterButton()
-        {
-            DeleteFilterButton.Image = Properties.Resources.Exit_Up;
-            DeleteFilterButton.Anchor = (AnchorStyles.Right | AnchorStyles.Top);
-            DeleteFilterButton.Width = 16;
-            DeleteFilterButton.Height = 16;
-            DeleteFilterButton.FlatStyle = FlatStyle.Flat;
-            DeleteFilterButton.ImageAlign = ContentAlignment.MiddleCenter;
-            DeleteFilterButton.FlatAppearance.BorderSize = 0;
-            DeleteFilterButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
-        }
-
-        private void InitializeEvents()
-        {
-            checkedListBox.SelectedIndexChanged += (sender, e) => //When a tag is checked, update the search results
-            {
-                if (isDisplayed == true)
-                {
-                    tags.Clear();
-                    foreach (object itemChecked in checkedListBox.CheckedItems)
-                    {
-                        tags.Add(itemChecked.ToString());
-                    }
-                    UpdateSearch();
-                }
-            };
-        }
-
-        private void UpdateSelectedTags() //Loads the tags that are checked for this tile
-        {
-            for (int i = 0; i < checkedListBox.Items.Count; i++) checkedListBox.SetItemChecked(i, false);
-
-            if (checkedListBox.Items.Count != 0)
-            {
-                for(int i = 0; i < checkedListBox.Items.Count; i++)
-                {
-                    foreach(string s in tags)
-                    {
-                        if (s == checkedListBox.Items[i].ToString()) checkedListBox.SetItemChecked(i, true);
-                    }
-                }
-
-            }
-        }
-
-        private void UpdateSearch()
-        {
-
-        }
-    }
-
-    public class MustHaveTile : TagSearchTypeTile
-    {
-        public MustHaveTile(ref CheckedListBox checkedListBox_) : base(ref checkedListBox_)
-        {
-            /*
-            checkedListBox.ItemCheck += (sender, e) =>
-            {
-                Console.WriteLine("Child");
-            };
-            */
-            FilterTypeLabel.Text = "Must have";
-        }
-    }
-
-    public class MustHaveNotTile : TagSearchTypeTile
-    {
-        public MustHaveNotTile(ref CheckedListBox checkedListBox_) : base(ref checkedListBox_)
-        {
-            FilterTypeLabel.Text = "Must not have";
-        }
-    }
-
 }
 
 

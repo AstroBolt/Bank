@@ -50,19 +50,25 @@ namespace Bank
             return output;
         }
 
-        public List<DataEntry> GetDataEntryListByDate()
+        public List<DataEntry> GetDataEntryList(string sortType)
         {
-            return new List<DataEntry>(dataEntryByDate);
-        }
-
-        public List<DataEntry> GetDataEntryListByDateCreated()
-        {
-            return new List<DataEntry>(dataEntryByDateCreated);
-        }
-
-        public List<DataEntry> GetDataEntryListByValue()
-        {
-            return new List<DataEntry>(dataEntryByValue);
+            if (sortType == "date")
+            {
+                return new List<DataEntry>(dataEntryByDate);
+            }
+            else if (sortType == "dateCreated")
+            {
+                return new List<DataEntry>(dataEntryByDateCreated);
+            }
+            else if (sortType == "value")
+            {
+                return new List<DataEntry>(dataEntryByValue);
+            }
+            else 
+            {
+                Console.WriteLine("UserInfo.GetDataEntryList() was given an invalid parameter");
+                return new List<DataEntry>(dataEntryByDateCreated);
+            }
         }
 
         public int GetDataEntryCount()

@@ -22,6 +22,7 @@ namespace Bank
 
         private void AddTag_Okay_Button_Click(object sender, EventArgs e)
         {
+            
             AddAndClose();
         }
 
