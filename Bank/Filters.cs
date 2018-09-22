@@ -49,28 +49,9 @@ namespace Bank
                 prevSelectedIndex = filterTypeComboBox.SelectedIndex;
 
                 for (int i = 0; i < tagSelectionBox.Items.Count; i++) tagSelectionBox.SetItemChecked(i, false);
-                if (filterTypeComboBox.SelectedIndex == 0)//Must have check boxes will be checked
-                {
-                    currentFilterType = "Must have";
-                    for(int i = 0; i < tagSelectionBox.Items.Count; i++)
-                    {
-                        foreach(string s in mustHaveList)
-                        {
-                            if (s == tagSelectionBox.Items[i].ToString()) tagSelectionBox.SetItemChecked(i, true);
-                        }
-                    }
-                }
-                else if (filterTypeComboBox.SelectedIndex == 1)//Must not have check boxes will be checked
-                {
-                    currentFilterType = "Must not have";
-                    for (int i = 0; i < tagSelectionBox.Items.Count; i++)
-                    {
-                        foreach (string s in mustNotHaveList)
-                        {
-                            if (s == tagSelectionBox.Items[i].ToString()) tagSelectionBox.SetItemChecked(i, true);
-                        }
-                    }
-                }
+                if (filterTypeComboBox.SelectedIndex == 0) currentFilterType = "Must have";
+                else if (filterTypeComboBox.SelectedIndex == 1) currentFilterType = "Must not have";
+                CheckTagsInList();
             };
             mainTable.Controls.Add(filterTypeComboBox, 0, 1);
             mainTable.SetColumnSpan(filterTypeComboBox, 2);
@@ -92,13 +73,14 @@ namespace Bank
             clearAllButton.Anchor = (AnchorStyles.Left | AnchorStyles.Top);
             clearAllButton.Click += (sender, e) => 
             {
-
+                if (currentFilterType == "Must have") mustHaveList.Clear();
+                else if (currentFilterType == "Must not have") mustNotHaveList.Clear();
+                for(int i = 0; i < tagSelectionBox.Items.Count; i++)
+                {
+                    tagSelectionBox.SetItemChecked(i, false);
+                }
             }; //Finish this
             mainTable.Controls.Add(clearAllButton, 1, 4);
-
-
-            //Testing
-            mustHaveList.Add("Davis");
         }
 
         public TableLayoutPanel GetMainTable()
@@ -110,11 +92,6 @@ namespace Bank
         {
             tagSelectionBox.Items.Clear();
             tagSelectionBox.Items.AddRange(userInfo.GetTagsArray());
-        }
-
-        public void UpdateCheckedFilterTags()
-        {
-
         }
 
         public ref Button GetApplyButton()
@@ -145,6 +122,17 @@ namespace Bank
             return output;
         }
 
+        public void CheckTagsInList()
+        {
+            for (int i = 0; i < tagSelectionBox.Items.Count; i++)
+            {
+                foreach (string s in GetList(currentFilterType))
+                {
+                    if (s == tagSelectionBox.Items[i].ToString()) tagSelectionBox.SetItemChecked(i, true);
+                }
+            }
+        }
+
         private bool PassesFilters(DataEntry dataEntry)
         {
             bool doesHave = false;
@@ -169,7 +157,7 @@ namespace Bank
             return true;
         }
 
-        private ref List<string> GetList(string list)
+        private ref List<string> GetList(string list) //Returns the list associated with the string parameter
         {
             switch (list)
             {

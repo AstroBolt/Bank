@@ -124,12 +124,13 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.EntryListSortingButton, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(123, 27);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(123, 29);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -161,21 +162,21 @@
             // valueStripMenuItem
             // 
             this.valueStripMenuItem.Name = "valueStripMenuItem";
-            this.valueStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.valueStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.valueStripMenuItem.Text = "Value";
             this.valueStripMenuItem.Click += new System.EventHandler(this.ValueToolStripMenuItem_Click);
             // 
             // dateAddedToolStripMenuItem
             // 
             this.dateAddedToolStripMenuItem.Name = "dateAddedToolStripMenuItem";
-            this.dateAddedToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.dateAddedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dateAddedToolStripMenuItem.Text = "Date added";
             this.dateAddedToolStripMenuItem.Click += new System.EventHandler(this.DateAddedToolStripMenuItem_Click);
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dateToolStripMenuItem.Text = "Date";
             this.dateToolStripMenuItem.Click += new System.EventHandler(this.DateToolStripMenuItem_Click);
             // 

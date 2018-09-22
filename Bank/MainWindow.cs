@@ -14,9 +14,9 @@ using System.IO;
 
 /*
  * To do:
- *  Update filter tags whenever tags are added.
  *  Improve file I/O operations
  *  Tag deletion
+ *      From entries and from tag list
  *  Reformat entries
  *  Entry deletion
  *      Little x's top right corner of entries that only appear as you hover over the entry
@@ -137,7 +137,8 @@ namespace Bank
             List<DataEntry> dataEntries = new List<DataEntry>();
 
             if (userInfo.GetDataEntryCount() == 0) dataEntries = userInfo.GetDataEntryList("date");
-            else dataEntries = userInfo.GetDataEntryList(sortType);
+            else dataEntries = tagSearch.FilterDataEntries(userInfo.GetDataEntryList(sortType));
+
             if (!SortInReverse)
             {
                 for (int i = 0; i < dataEntries.Count; i++) //Looping through normally
@@ -166,7 +167,8 @@ namespace Bank
 
         private void MainWindowActivated(object sender, EventArgs e)
         {
-            Console.WriteLine(userInfo.GetDataEntryCount());
+            tagSearch.UpdateFilterTags();
+            tagSearch.CheckTagsInList();
             DisplayEntries();
         }
 
