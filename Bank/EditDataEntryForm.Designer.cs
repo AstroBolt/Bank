@@ -175,6 +175,7 @@
             this.Controls.Add(this.Value);
             this.Name = "EditDataEntryForm";
             this.Text = "EditDataEntryForm";
+            this.Load += new System.EventHandler(this.EditDataEntryForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

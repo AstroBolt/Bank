@@ -20,9 +20,13 @@ namespace Bank
             AddTag_TagName_TextBox.KeyUp += new KeyEventHandler(AddTagFormKeyUp);
         }
 
+        private void AddTagForm_Load(object sender, EventArgs e)
+        {
+            this.CenterToParent();
+        }
+
         private void AddTag_Okay_Button_Click(object sender, EventArgs e)
         {
-            
             AddAndClose();
         }
 

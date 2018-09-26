@@ -67,6 +67,7 @@
     <Compile Include="EditDataEntryForm.Designer.cs">
       <DependentUpon>EditDataEntryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EntryTile.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Exit_Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit_Hover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

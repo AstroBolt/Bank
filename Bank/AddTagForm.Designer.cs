@@ -83,6 +83,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AddTagForm";
             this.Text = "AddTag";
+            this.Load += new System.EventHandler(this.AddTagForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

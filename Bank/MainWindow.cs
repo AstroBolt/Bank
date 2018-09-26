@@ -20,6 +20,7 @@ using System.IO;
  *  Reformat entries
  *  Entry deletion
  *      Little x's top right corner of entries that only appear as you hover over the entry
+ *  Change ID assignment to static member of DataEntry class
  */
 
 
@@ -40,6 +41,8 @@ namespace Bank
         private bool changesMade = true;
         private TagSearch tagSearch;
 
+        //Testing
+
         private void Form1_Load(object sender, EventArgs e)
         {
             MainTable.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
@@ -59,6 +62,8 @@ namespace Bank
 
             //Start sorting reversal button as up
             EntryListSortingButton.Image = Properties.Resources.Up_Arrows;
+
+            this.CenterToScreen();
         }
 
         private void Add_Entry_Button_Click(object sender, EventArgs e)
@@ -93,24 +98,20 @@ namespace Bank
 
         private void DisplayEntries()
         {
-            List<Button> buttons = GetEntryList();
+            List<EntryTile> entryTiles = GetEntryList();
             for (int i = EntryDisplayTable.Controls.Count - 1; i >= 0; i--)
             {
                 Control b = EntryDisplayTable.Controls[i];
                 EntryDisplayTable.Controls.Remove(b);
                 b.Dispose();
             }
-            foreach (Button b in buttons)
+            foreach (EntryTile entryTile in entryTiles)
             {
-                b.FlatStyle = FlatStyle.Flat;
-                b.Dock = DockStyle.Top;
-                b.TextAlign = ContentAlignment.TopLeft;
-                b.MinimumSize = new System.Drawing.Size(80, 80);
-                EntryDisplayTable.Controls.Add(b);
+                EntryDisplayTable.Controls.Add(entryTile.GetPanel());
             }
         }
 
-        private void EntryButton_Click(object sender, EventArgs e, DataEntry dataEntry)
+        private void EntryTile_Click(object sender, EventArgs e, DataEntry dataEntry)
         {
             EditDataEntryForm EDEForm = new EditDataEntryForm(userInfo, ref dataEntry);
             EDEForm.ShowDialog();
@@ -131,9 +132,9 @@ namespace Bank
             DisplayEntries();
         }
 
-        public List<Button> GetEntryList()
+        private List<EntryTile> GetEntryList()
         {
-            List<Button> buttons = new List<Button>();
+            List<EntryTile> entryTiles = new List<EntryTile>();
             List<DataEntry> dataEntries = new List<DataEntry>();
 
             if (userInfo.GetDataEntryCount() == 0) dataEntries = userInfo.GetDataEntryList("date");
@@ -143,26 +144,31 @@ namespace Bank
             {
                 for (int i = 0; i < dataEntries.Count; i++) //Looping through normally
                 {
-                    buttons.Add(CreateButtonFromDataEntry(dataEntries[i]));
+                    entryTiles.Add(CreateEntryTile(dataEntries[i]));
                 }
             }
             else
             {
                 for (int i = dataEntries.Count - 1; i >= 0; i--) //Looping through reversed
                 {
-                    buttons.Add(CreateButtonFromDataEntry(dataEntries[i]));
+                    entryTiles.Add(CreateEntryTile(dataEntries[i]));
                 }
             }
-            return buttons;
+            return entryTiles;
         }
 
-        private Button CreateButtonFromDataEntry(DataEntry d)
+        private EntryTile CreateEntryTile(DataEntry d)
         {
-            string s = d.Id + "| " + "$" + String.Format(d.Value % 1 == 0 ? "{0:F0}" : "{0:F2}", d.Value) + "\r\n" + d.Date + "\r\n" + d.Description + "\r\n" + d.TagsToString(d.Tags);
-            Button b = new Button();
-            b.Text = s;
-            b.Click += (sender, e) => EntryButton_Click(sender, e, d);
-            return b;
+            EntryTile entryTile = new EntryTile(d);
+            entryTile.GetPanel().Click += (sender, e) => EntryTile_Click(sender, e, d);
+            entryTile.GetMainTable().Click += (sender, e) => EntryTile_Click(sender, e, d);
+            entryTile.GetEntryTextLabel().Click += (sender, e) => EntryTile_Click(sender, e, d);
+            entryTile.GetDeleteEntryButton().Click += (sender, e) =>
+            {
+                userInfo.DeleteDataEntry(ref entryTile.GetDataEntry());
+                DisplayEntries();
+            };
+            return entryTile;
         }
 
         private void MainWindowActivated(object sender, EventArgs e)

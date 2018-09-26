@@ -58,9 +58,9 @@
             // 
             this.MainTable.AccessibleName = "MainTable";
             this.MainTable.ColumnCount = 3;
-            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70.58823F));
+            this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29.41176F));
             this.MainTable.Controls.Add(this.Main_Buttons_Group, 0, 2);
             this.MainTable.Controls.Add(this.EntryDisplayTable, 1, 2);
             this.MainTable.Controls.Add(this.tableLayoutPanel1, 1, 1);
@@ -73,16 +73,17 @@
             this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 77.77779F));
             this.MainTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.MainTable.Size = new System.Drawing.Size(800, 450);
+            this.MainTable.Size = new System.Drawing.Size(984, 461);
             this.MainTable.TabIndex = 0;
             // 
             // Main_Buttons_Group
             // 
             this.Main_Buttons_Group.Controls.Add(this.Add_Tag_Button);
             this.Main_Buttons_Group.Controls.Add(this.Add_Entry_Button);
-            this.Main_Buttons_Group.Location = new System.Drawing.Point(3, 74);
+            this.Main_Buttons_Group.Location = new System.Drawing.Point(3, 75);
+            this.Main_Buttons_Group.MinimumSize = new System.Drawing.Size(90, 80);
             this.Main_Buttons_Group.Name = "Main_Buttons_Group";
-            this.Main_Buttons_Group.Size = new System.Drawing.Size(114, 127);
+            this.Main_Buttons_Group.Size = new System.Drawing.Size(90, 80);
             this.Main_Buttons_Group.TabIndex = 4;
             this.Main_Buttons_Group.TabStop = false;
             this.Main_Buttons_Group.Text = "Actions";
@@ -113,13 +114,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.EntryDisplayTable.AutoScroll = true;
+            this.EntryDisplayTable.AutoSize = true;
             this.EntryDisplayTable.ColumnCount = 1;
-            this.EntryDisplayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.EntryDisplayTable.Location = new System.Drawing.Point(123, 74);
+            this.EntryDisplayTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.EntryDisplayTable.Location = new System.Drawing.Point(99, 75);
             this.EntryDisplayTable.Name = "EntryDisplayTable";
             this.EntryDisplayTable.RowCount = 1;
             this.EntryDisplayTable.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.EntryDisplayTable.Size = new System.Drawing.Size(474, 325);
+            this.EntryDisplayTable.Size = new System.Drawing.Size(620, 333);
             this.EntryDisplayTable.TabIndex = 5;
             // 
             // tableLayoutPanel1
@@ -130,7 +132,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.EntryListSortingButton, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(123, 29);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(99, 30);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -162,21 +164,21 @@
             // valueStripMenuItem
             // 
             this.valueStripMenuItem.Name = "valueStripMenuItem";
-            this.valueStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.valueStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.valueStripMenuItem.Text = "Value";
             this.valueStripMenuItem.Click += new System.EventHandler(this.ValueToolStripMenuItem_Click);
             // 
             // dateAddedToolStripMenuItem
             // 
             this.dateAddedToolStripMenuItem.Name = "dateAddedToolStripMenuItem";
-            this.dateAddedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateAddedToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.dateAddedToolStripMenuItem.Text = "Date added";
             this.dateAddedToolStripMenuItem.Click += new System.EventHandler(this.DateAddedToolStripMenuItem_Click);
             // 
             // dateToolStripMenuItem
             // 
             this.dateToolStripMenuItem.Name = "dateToolStripMenuItem";
-            this.dateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.dateToolStripMenuItem.Text = "Date";
             this.dateToolStripMenuItem.Click += new System.EventHandler(this.DateToolStripMenuItem_Click);
             // 
@@ -202,7 +204,7 @@
             this.fileToolStripMenuItem});
             this.MainMenuBar.Location = new System.Drawing.Point(0, 0);
             this.MainMenuBar.Name = "MainMenuBar";
-            this.MainMenuBar.Size = new System.Drawing.Size(800, 24);
+            this.MainMenuBar.Size = new System.Drawing.Size(984, 24);
             this.MainMenuBar.TabIndex = 7;
             this.MainMenuBar.Text = "menuStrip2";
             // 
@@ -249,7 +251,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(984, 461);
             this.Controls.Add(this.MainTable);
             this.MainMenuStrip = this.MainMenuBar;
             this.Name = "MainWindow";

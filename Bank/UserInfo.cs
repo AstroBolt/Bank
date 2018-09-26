@@ -13,6 +13,18 @@ namespace Bank
 {
     public class UserInfo
     {
+        private Tags tags = new Tags();
+        private SortedSet<DataEntry> dataEntryByDate = new SortedSet<DataEntry>(new ComparerDataEntryByDate());
+        private SortedSet<DataEntry> dataEntryByValue = new SortedSet<DataEntry>(new ComparerDataEntryByValue());
+        private SortedSet<DataEntry> dataEntryByDateCreated = new SortedSet<DataEntry>(new ComparerDataEntryByDateCreated());
+        private List<DataEntry> deletedDataEntries = new List<DataEntry>();
+
+        static bool AreDataEntriesEqual(DataEntry a, DataEntry b)
+        {
+            if (a.Id == b.Id) return true;
+            else return false;
+        }
+
         public UserInfo()
         {
         }
@@ -27,14 +39,15 @@ namespace Bank
             Console.WriteLine("Added entry");
         }
 
-        public void AddTag(string tagName) { tags.AddTag(tagName); }
-
-        private string ConvertDataEntryToString(DataEntry dataEntry)
+        public void DeleteDataEntry(ref DataEntry data)
         {
-            string dataEntryString = string.Empty;
-            dataEntryString += dataEntry.Id.ToString() + "\r\n" + dataEntry.Description + "\r\n" + dataEntry.Date + "\r\n" + dataEntry.TagsToString(dataEntry.Tags) + "\r\n";
-            return dataEntryString;
+            deletedDataEntries.Add(data);
+            dataEntryByDate.Remove(data);
+            dataEntryByValue.Remove(data);
+            dataEntryByDateCreated.Remove(data);
         }
+
+        public void AddTag(string tagName) { tags.AddTag(tagName); }
 
         private string ConvertUserInfoToString()
         {
@@ -75,7 +88,6 @@ namespace Bank
         {
             return dataEntryByDate.Count;
         }
-
         public string[] GetTagsArray() { return tags.GetArray(); }
 
         public void LoadUserInfo(string file)
@@ -96,11 +108,12 @@ namespace Bank
             WriteUserInfo(file, userInfoDataPackage);
         }
 
-        private Tags tags = new Tags();
-
-        private SortedSet<DataEntry> dataEntryByDate = new SortedSet<DataEntry>(new ComparerDataEntryByDate());
-        private SortedSet<DataEntry> dataEntryByValue = new SortedSet<DataEntry>(new ComparerDataEntryByValue());
-        private SortedSet<DataEntry> dataEntryByDateCreated = new SortedSet<DataEntry>(new ComparerDataEntryByDate());
+        private string ConvertDataEntryToString(DataEntry dataEntry)
+        {
+            string dataEntryString = string.Empty;
+            dataEntryString += dataEntry.Id.ToString() + "\r\n" + dataEntry.Description + "\r\n" + dataEntry.Date + "\r\n" + dataEntry.TagsToString(dataEntry.Tags) + "\r\n";
+            return dataEntryString;
+        }
 
         private UserInfoDataPackage ReadUserInfo(string file)
         {
@@ -122,13 +135,19 @@ namespace Bank
         }
     }
 
+    //--------------------------------------------------------------------------------------------------------
+
+
+    //--------------------------------------------------------------------------------------------------------
+
     class ComparerDataEntryByDate : IComparer<DataEntry>
     {
         public int Compare(DataEntry left, DataEntry right)
-        { 
+        {
+            if (left.Id == right.Id) return 0;
             if (DateTime.Parse(left.Date).CompareTo(DateTime.Parse(right.Date)) == 0)
             {
-                return 1;
+                return 1;  //They just have the same date, so still add to set
             }
             return DateTime.Parse(left.Date).CompareTo(DateTime.Parse(right.Date));
         }
@@ -138,6 +157,7 @@ namespace Bank
     {
         public int Compare(DataEntry left, DataEntry right)
         {
+            if (left.Id == right.Id) return 0;
             if (left.Value == right.Value)
             {
                 return 1;
@@ -150,6 +170,7 @@ namespace Bank
     {
         public int Compare(DataEntry left, DataEntry right)
         {
+            if (left.Id == right.Id) return 0;
             if (DateTime.Compare(left.DateCreated, right.DateCreated) == 0)
             {
                 return 1;

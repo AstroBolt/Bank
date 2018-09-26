@@ -28,12 +28,19 @@ namespace Bank
         public string TagsToString(List<string> listStrings)
         {
             string tagsString = string.Empty;
-            if(listStrings.Count != 0)
+            try
             {
-                foreach(string s in listStrings)
+                if (listStrings.Count != 0)
                 {
-                    tagsString += s + " | ";
+                    foreach (string s in listStrings)
+                    {
+                        tagsString += s + " | ";
+                    }
                 }
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("DataEntry.TagsToString() was given an invalid List<string>");
             }
             return tagsString;
         }

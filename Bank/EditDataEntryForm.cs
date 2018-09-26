@@ -24,6 +24,11 @@ namespace Bank
             InitializeAddTagTextBox();
         }
 
+        private void EditDataEntryForm_Load(object sender, EventArgs e)
+        {
+            this.CenterToParent();
+        }
+
         private void AddTag()
         {
             List<string> checkedTags = new List<string>();

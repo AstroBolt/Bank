@@ -25,7 +25,7 @@ namespace Bank
 
         private void DataEntryForm_Load(object sender, EventArgs e)
         {
-
+            this.CenterToParent();
         }
 
         private void AddAndClose()
@@ -35,7 +35,14 @@ namespace Bank
             {
                 tags.Add(item.ToString());
             }
-            DataEntry dataEntry = new DataEntry(System.Convert.ToDecimal(Value.Text), Date.Text, Description.Text, tags);
+            DataEntry dataEntry;
+            decimal value = 0;
+
+            if(!decimal.TryParse(Value.Text, out value)){
+                MessageBox.Show("Invalid value. Please enter a decimal number.");
+                return;
+            }
+            dataEntry = new DataEntry(System.Convert.ToDecimal(Value.Text), Date.Text, Description.Text, tags);
             dataEntry.Value = System.Convert.ToDecimal(Value.Text);
             dataEntry.Date = Date.Text;
             dataEntry.Description = Description.Text;
